@@ -4,6 +4,7 @@ set -euo pipefail
 GITHUB_REPO="${GITHUB_REPO:-cklaozhao-boop/finance-node-openclaw}"
 GITHUB_REF="${GITHUB_REF:-main}"
 SCRIPT_SOURCE="${BASH_SOURCE[0]:-}"
+BOOTSTRAP_TMP_DIR=""
 
 bootstrap_from_github() {
   local tmp_dir archive_url extracted_dir
@@ -17,7 +18,8 @@ bootstrap_from_github() {
   fi
 
   tmp_dir="$(mktemp -d)"
-  trap 'rm -rf "$tmp_dir"' EXIT
+  BOOTSTRAP_TMP_DIR="$tmp_dir"
+  trap 'rm -rf "$BOOTSTRAP_TMP_DIR"' EXIT
   archive_url="https://codeload.github.com/${GITHUB_REPO}/tar.gz/${GITHUB_REF}"
 
   curl -fsSL "$archive_url" -o "$tmp_dir/repo.tar.gz"
@@ -30,6 +32,8 @@ bootstrap_from_github() {
   fi
 
   bash "$extracted_dir/installer/install.sh" "$@"
+  trap - EXIT
+  rm -rf "$BOOTSTRAP_TMP_DIR"
 }
 
 if [[ -z "$SCRIPT_SOURCE" ]] || [[ "$SCRIPT_SOURCE" == "bash" ]] || [[ "$SCRIPT_SOURCE" == "-bash" ]]; then
