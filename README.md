@@ -67,6 +67,48 @@ curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-opencla
 
 并生成对应的使用说明。
 
+## mac 桌面版
+
+仓库内现在包含一个 Electron 版 macOS 启动器，目标是让新手用户通过双击应用完成：
+
+- 本地安装 `Finance Node`
+- 自动启动本地服务
+- 直接打开 Web 工作台
+- 一键绑定 OpenClaw agent
+
+桌面启动器源码在：
+
+```text
+desktop-app/
+```
+
+本地构建：
+
+```bash
+cd desktop-app
+npm install
+npm run pack:mac
+```
+
+打包完成后，会得到：
+
+```text
+desktop-app/release/mac-arm64/Finance Node.app
+```
+
+当前桌面版会复用本仓库现有的安装器：
+
+- `installer/install.sh`
+- `installer/install-openclaw.sh`
+
+也就是说，桌面版不是单独维护第二套逻辑，而是把“点击即安装/启动/绑定”的体验包在一个 mac App 里。
+
+注意：
+
+- 这是桌面启动器第一版
+- 当前仍然依赖用户机器上可用的 `bash` 与 `python3`
+- 如果要做到真正零依赖分发，下一步要把 Python 服务端再打成独立二进制
+
 ## 安装后怎么用
 
 服务安装完成后，安装器会打印：
@@ -176,5 +218,6 @@ rm -f "$HOME/.openclaw/workspace-<agent>/docs/finance-node-bookkeeping-guide.md"
 ## 文档
 
 - 使用说明：[docs/USAGE.md](docs/USAGE.md)
+- 桌面版说明：[docs/DESKTOP_APP.md](docs/DESKTOP_APP.md)
 - 发布说明：[docs/PUBLISHING.md](docs/PUBLISHING.md)
 - 服务说明：[service/README.md](service/README.md)

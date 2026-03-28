@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Node</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Desktop Launcher</div>
+          <h1>Finance Node</h1>
+        </div>
+        <div class="topbar-actions">
+          <span id="status-pill" class="status-pill status-pending">初始化中</span>
+          <button id="refresh-button" class="ghost-button" type="button">刷新状态</button>
+          <button id="browser-button" class="ghost-button" type="button" disabled>浏览器打开</button>
+        </div>
+      </header>
+
+      <section class="layout">
+        <aside class="sidebar">
+          <section class="card">
+            <h2>本地部署</h2>
+            <p class="muted">双击应用后，这里会自动完成本地节点安装与启动。</p>
+            <dl class="info-list">
+              <div>
+                <dt>节点名称</dt>
+                <dd id="node-name">-</dd>
+              </div>
+              <div>
+                <dt>本机地址</dt>
+                <dd id="local-url">-</dd>
+              </div>
+              <div>
+                <dt>远程地址</dt>
+                <dd id="public-url">-</dd>
+              </div>
+              <div>
+                <dt>Token</dt>
+                <dd id="token-value">-</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="card">
+            <h2>OpenClaw 绑定</h2>
+            <p class="muted">输入 agent 名称后，应用会把记账 skill 自动写到对应工作区。</p>
+            <div class="binding-row">
+              <input id="agent-input" type="text" placeholder="例如：hubu" />
+              <button id="bind-button" type="button">绑定</button>
+            </div>
+            <p id="bind-result" class="muted"></p>
+          </section>
+
+          <section class="card">
+            <h2>运行日志</h2>
+            <div id="log-box" class="log-box"></div>
+          </section>
+        </aside>
+
+        <main class="workspace">
+          <div id="loading-state" class="loading-state">
+            <div class="spinner"></div>
+            <h2>正在准备本地财务节点</h2>
+            <p>第一次启动会自动安装服务、生成 Token，并拉起 Web 工作台。</p>
+          </div>
+
+          <iframe
+            id="dashboard-frame"
+            class="dashboard-frame hidden"
+            title="Finance Node Dashboard"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </main>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>

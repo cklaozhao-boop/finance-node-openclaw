@@ -1,0 +1,245 @@
+:root {
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+  background: #0f1115;
+  color: #f4f5f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(80, 131, 255, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(255, 115, 115, 0.16), transparent 30%),
+    #0f1115;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 11, 15, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.topbar h1 {
+  margin: 4px 0 0;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8e97ab;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-online {
+  background: rgba(52, 211, 153, 0.18);
+  color: #80efc8;
+}
+
+.status-pending {
+  background: rgba(99, 102, 241, 0.18);
+  color: #b7c3ff;
+}
+
+.status-error {
+  background: rgba(255, 115, 115, 0.18);
+  color: #ffb0b0;
+}
+
+.ghost-button,
+button,
+input {
+  font: inherit;
+}
+
+.ghost-button,
+button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f4f5f7;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  padding: 16px;
+  min-height: calc(100vh - 83px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(16, 18, 23, 0.72);
+  padding: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.muted {
+  color: #9ea6b8;
+  line-height: 1.6;
+}
+
+.info-list {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 0;
+}
+
+.info-list div {
+  display: grid;
+  gap: 4px;
+}
+
+.info-list dt {
+  color: #7f8798;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.info-list dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.binding-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.binding-row input {
+  flex: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f4f5f7;
+  padding: 10px 12px;
+}
+
+.log-box {
+  margin-top: 14px;
+  max-height: 260px;
+  overflow: auto;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #c9cfdb;
+}
+
+.workspace {
+  position: relative;
+  min-height: 0;
+}
+
+.loading-state,
+.dashboard-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 760px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(10, 12, 16, 0.86);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+
+.loading-state {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-state h2 {
+  margin: 18px 0 10px;
+}
+
+.loading-state p {
+  max-width: 460px;
+  color: #9ea6b8;
+  line-height: 1.6;
+}
+
+.spinner {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #7d9cff;
+  animation: spin 1s linear infinite;
+}
+
+.dashboard-frame {
+  display: block;
+  background: #0c0f14;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

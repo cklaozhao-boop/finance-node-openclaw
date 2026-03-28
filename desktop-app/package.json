@@ -1,0 +1,54 @@
+{
+  "name": "finance-node-openclaw-desktop",
+  "version": "0.1.0",
+  "description": "Finance Node desktop launcher for macOS.",
+  "main": "src/main.js",
+  "author": "cklaozhao-boop",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "electron .",
+    "pack:mac": "electron-builder --mac dir",
+    "dist:mac": "electron-builder --mac dmg zip"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.finance-node-openclaw.desktop",
+    "productName": "Finance Node",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../installer",
+        "to": "bundle/installer"
+      },
+      {
+        "from": "../service",
+        "to": "bundle/service"
+      },
+      {
+        "from": "../openclaw",
+        "to": "bundle/openclaw"
+      },
+      {
+        "from": "../README.md",
+        "to": "bundle/README.md"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        "dir",
+        "zip",
+        "dmg"
+      ]
+    }
+  }
+}

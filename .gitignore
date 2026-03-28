@@ -5,6 +5,7 @@ __pycache__/
 *.pyd
 node_modules/
 dist/
+release/
 runtime/
 logs/
 .env
