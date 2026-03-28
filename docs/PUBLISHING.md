@@ -12,20 +12,20 @@
 3. 检查这两个入口是否可直接通过 Raw URL 下载：
    - `installer/install.sh`
    - `installer/install-openclaw.sh`
-4. 在 README 中把 `<github-username>` 替换成你的真实 GitHub 用户名
+4. 当前 README 已写死 `cklaozhao-boop`，如果仓库转移到别的账号，再把 Raw URL 一并改掉
 
 ## 用户安装方式
 
 ### 安装节点服务
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<github-username>/finance-node-openclaw/main/installer/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install.sh | bash
 ```
 
 ### 绑定 OpenClaw agent
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<github-username>/finance-node-openclaw/main/installer/install-openclaw.sh | bash -s -- --agent <agent-name>
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install-openclaw.sh | bash -s -- --agent hubu
 ```
 
 ## 版本更新建议

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-TEMPLATE_ROOT="$REPO_ROOT/openclaw/templates"
+GITHUB_REPO="${GITHUB_REPO:-cklaozhao-boop/finance-node-openclaw}"
+GITHUB_REF="${GITHUB_REF:-main}"
+SCRIPT_SOURCE="${BASH_SOURCE[0]:-}"
 
 AGENT_NAME=""
 OPENCLAW_HOME="${OPENCLAW_HOME:-$HOME/.openclaw}"
@@ -24,6 +24,47 @@ done
 if [[ -z "$AGENT_NAME" ]]; then
   echo "Usage: ./installer/install-openclaw.sh --agent <agent-name>" >&2
   exit 1
+fi
+
+bootstrap_from_github() {
+  local tmp_dir archive_url extracted_dir
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "Missing required command: curl" >&2
+    exit 1
+  fi
+  if ! command -v tar >/dev/null 2>&1; then
+    echo "Missing required command: tar" >&2
+    exit 1
+  fi
+
+  tmp_dir="$(mktemp -d)"
+  trap 'rm -rf "$tmp_dir"' EXIT
+  archive_url="https://codeload.github.com/${GITHUB_REPO}/tar.gz/${GITHUB_REF}"
+
+  curl -fsSL "$archive_url" -o "$tmp_dir/repo.tar.gz"
+  tar -xzf "$tmp_dir/repo.tar.gz" -C "$tmp_dir"
+  extracted_dir="$(find "$tmp_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+
+  if [[ -z "$extracted_dir" ]] || [[ ! -f "$extracted_dir/installer/install-openclaw.sh" ]]; then
+    echo "Failed to bootstrap installer from ${archive_url}" >&2
+    exit 1
+  fi
+
+  OPENCLAW_HOME="$OPENCLAW_HOME" bash "$extracted_dir/installer/install-openclaw.sh" --agent "$AGENT_NAME"
+}
+
+if [[ -z "$SCRIPT_SOURCE" ]] || [[ "$SCRIPT_SOURCE" == "bash" ]] || [[ "$SCRIPT_SOURCE" == "-bash" ]]; then
+  bootstrap_from_github
+  exit 0
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_SOURCE")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+TEMPLATE_ROOT="$REPO_ROOT/openclaw/templates"
+
+if [[ ! -d "$TEMPLATE_ROOT" ]]; then
+  bootstrap_from_github
+  exit 0
 fi
 
 WORKSPACE_DIR="$OPENCLAW_HOME/workspace-$AGENT_NAME"

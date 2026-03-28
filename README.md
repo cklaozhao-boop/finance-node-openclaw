@@ -20,10 +20,16 @@
 
 ## 快速安装
 
-先克隆仓库，然后执行：
+本地仓库安装：
 
 ```bash
 bash ./installer/install.sh
+```
+
+一键安装：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install.sh | bash
 ```
 
 安装完成后会输出：
@@ -38,8 +44,20 @@ bash ./installer/install.sh
 选择你要绑定的 agent：
 
 ```bash
-bash ./installer/install-openclaw.sh --agent <agent-name>
+bash ./installer/install-openclaw.sh --agent hubu
 ```
+
+一键绑定：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install-openclaw.sh | bash -s -- --agent hubu
+```
+
+注意：
+
+- `hubu` 只是示例名字
+- 这里要替换成你的真实 agent 名称
+- 不要把 `<agent-name>` 这类尖括号原样输入到终端
 
 安装器会把通用记账 skill 安装到：
 
@@ -54,13 +72,13 @@ bash ./installer/install-openclaw.sh --agent <agent-name>
 如果你把仓库发布到 GitHub，其他人可以直接：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<github-username>/finance-node-openclaw/main/installer/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install.sh | bash
 ```
 
 然后按需绑定 agent：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/<github-username>/finance-node-openclaw/main/installer/install-openclaw.sh | bash -s -- --agent <agent-name>
+curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-openclaw/main/installer/install-openclaw.sh | bash -s -- --agent hubu
 ```
 
 ## 安装后的默认目录
