@@ -1,0 +1,81 @@
+{
+  "skillName": "finance_node_openclaw",
+  "description": "Write and query transactions through the local Finance Node so OpenClaw can share the same ledger as the web dashboard.",
+  "baseUrl": "__BASE_URL__",
+  "authorization": {
+    "type": "bearer",
+    "token": "__TOKEN__"
+  },
+  "tools": [
+    {
+      "name": "finance_add_transaction",
+      "description": "Create a new transaction in the local ledger.",
+      "method": "POST",
+      "path": "/v1/transactions",
+      "inputSchema": {
+        "type": "object",
+        "required": ["title", "amount", "kind"],
+        "properties": {
+          "title": { "type": "string" },
+          "amount": { "type": "number" },
+          "kind": { "type": "string", "enum": ["expense", "income", "transfer"] },
+          "occurredAt": { "type": "string", "description": "ISO8601 datetime" },
+          "accountName": { "type": "string" },
+          "fromAccountName": { "type": "string" },
+          "toAccountName": { "type": "string" },
+          "projectName": { "type": "string" },
+          "sourceName": { "type": "string" },
+          "merchant": { "type": "string" },
+          "note": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" }
+            }
+          },
+          "reimbursementStatus": {
+            "type": "string",
+            "enum": ["draft", "submitted", "received"]
+          },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    {
+      "name": "finance_get_configuration",
+      "description": "Read available funding sources, accounts, projects and categories before creating transactions.",
+      "method": "GET",
+      "path": "/v1/configuration"
+    },
+    {
+      "name": "finance_list_transactions",
+      "description": "List recent transactions for confirmation or analysis.",
+      "method": "GET",
+      "path": "/v1/transactions"
+    },
+    {
+      "name": "finance_dashboard_overview",
+      "description": "Read the current dashboard overview from the local ledger.",
+      "method": "GET",
+      "path": "/v1/dashboard/overview"
+    },
+    {
+      "name": "finance_update_reimbursement",
+      "description": "Update reimbursement status for a transaction.",
+      "method": "PATCH",
+      "path": "/v1/transactions/{id}/reimbursement",
+      "inputSchema": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["draft", "submitted", "received"]
+          }
+        }
+      }
+    }
+  ]
+}

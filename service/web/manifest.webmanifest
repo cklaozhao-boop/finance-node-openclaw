@@ -1,0 +1,25 @@
+{
+  "name": "财务管理工作台",
+  "short_name": "财务工作台",
+  "description": "通过 Tailscale 安全访问的个人财务工作台，可固定到 iPhone 主屏幕像应用一样运行。",
+  "start_url": "/dashboard/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
