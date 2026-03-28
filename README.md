@@ -67,6 +67,44 @@ curl -fsSL https://raw.githubusercontent.com/cklaozhao-boop/finance-node-opencla
 
 并生成对应的使用说明。
 
+## 安装后怎么用
+
+服务安装完成后，安装器会打印：
+
+- 节点名称
+- 本机地址
+- Tailscale 地址
+- Web 工作台地址
+- Token
+
+你也可以随时查看：
+
+```bash
+cat "${XDG_CONFIG_HOME:-$HOME/.config}/finance-node-openclaw/install.json"
+cat "${HOME}/Library/Application Support/finance-node-openclaw/app/runtime/connection-info.txt"
+```
+
+典型使用方式：
+
+1. 在浏览器打开安装器输出的 Web 工作台地址
+2. 首次输入 Token
+3. 绑定一个 OpenClaw agent
+4. 对该 agent 发送结构化记账指令
+
+示例：
+
+```text
+请记一笔支出：今天午饭 32 元，账户生活账户，项目生活必要支出，类别外卖饮食，时间今天 12:30，备注工作日午餐。
+```
+
+```text
+请记一笔收入：小红书回款 2300 元，入账到经营账户，资金来源小红书，时间现在，备注 3 月回款。
+```
+
+```text
+请记一笔内部转账：从经营账户转 2000 元到生活账户，时间现在，备注本月生活补充。
+```
+
 ## 一键安装发布
 
 如果你把仓库发布到 GitHub，其他人可以直接：
@@ -101,7 +139,42 @@ ${XDG_DATA_HOME:-~/.local/share}/finance-node-openclaw/app
 ${XDG_CONFIG_HOME:-~/.config}/finance-node-openclaw/install.json
 ```
 
+## 卸载
+
+如果只是测试安装，手动删除以下内容即可。
+
+macOS:
+
+```bash
+launchctl bootout "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.finance-node-openclaw.plist" 2>/dev/null || true
+rm -f "$HOME/Library/LaunchAgents/com.finance-node-openclaw.plist"
+rm -rf "$HOME/Library/Application Support/finance-node-openclaw"
+rm -rf "${XDG_CONFIG_HOME:-$HOME/.config}/finance-node-openclaw"
+```
+
+如果已经绑定了 OpenClaw agent，还可以按需删除：
+
+```bash
+rm -rf "$HOME/.openclaw/workspace-<agent>/skills/finance-node-bookkeeper"
+rm -f "$HOME/.openclaw/workspace-<agent>/docs/finance-node-bookkeeping-guide.md"
+```
+
+## 常见问题
+
+### `command not found: compdef`
+
+这是你本地 `openclaw.zsh` 补全脚本的提示，和本仓库安装器无关，可以先忽略。
+
+### `Address already in use`
+
+说明 `31888` 端口已经被另一套节点占用了。先停掉旧服务，再启动新的 `finance-node-openclaw`。
+
+### `bash: BASH_SOURCE[0]: unbound variable`
+
+这个历史问题已经修复。当前 `curl | bash` 安装方式已兼容 GitHub Raw 下载执行。
+
 ## 文档
 
+- 使用说明：[docs/USAGE.md](docs/USAGE.md)
 - 发布说明：[docs/PUBLISHING.md](docs/PUBLISHING.md)
 - 服务说明：[service/README.md](service/README.md)
